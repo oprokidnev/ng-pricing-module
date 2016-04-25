@@ -1,0 +1,4 @@
+<div class="price-manager-component">
+    <h1>Price manager</h1>
+    <price-manager-item ng-repeat="item in $ctrl.items track by $id" price-class="item" on-clone="$ctrl.clone(item)"></price-manager-item>
+</div>

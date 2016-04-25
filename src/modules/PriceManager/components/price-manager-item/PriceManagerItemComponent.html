@@ -1,0 +1,51 @@
+<div class="price-manager-component">
+    <h1 editable-text="$ctrl.priceClass.name">{{$ctrl.priceClass.name}}</h1>
+    <div class="products container-fluid" ng-repeat="productType in $ctrl.priceClass.productTypes">
+        <div class="col-md-3">
+            <strong editable-text="productType.name">{{productType.name}}</strong>
+        </div>
+        <div class="col-md-9">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th ng-repeat="priceRange in $ctrl.priceClass.ranges">
+                            <strong editable-text="priceRange.from">{{priceRange.from}}</strong>
+                            -
+                            <strong editable-text="priceRange.to">{{priceRange.to}}</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-repeat="priceRange in $ctrl.priceClass.ranges">
+                            <div class="" ng-repeat="price in priceRange.prices" ng-if="price.productTypeId == productType.id">
+                                <div class="form-group">
+                                    <label >In price</label>
+                                    <input type="number" class="form-control" id="" placeholder="" ng-model="price.priceIn">
+                                </div>
+                                <div class="form-group">
+                                    <label >Out price</label>
+                                    <input type="number" class="form-control" id="" placeholder="" ng-model="price.priceOut">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <form name="newRangeForm" ng-submit="$ctrl.addRange(newRangeForm,$ctrl.newRange)">
+        {{newRange}}
+        <div class="form-group">
+            <label for="newRangeFrom">Items number from</label>
+            <input type="number" class="form-control" name="newRangeFrom" id="newRangeFrom" placeholder="From" ng-model="$ctrl.newRange.from">
+        </div>
+        <div class="form-group" ng-class="{'has-error':newRangeForm.newRangeTo.$invalid}">
+            <label for="newRangeTo">Items number to {{newRange.from}}</label>
+            <input type="number" class="form-control" name="newRangeTo" id="newRangeTo" placeholder="To" range-validator="$ctrl.newRange.from" ng-model="$ctrl.newRange.to">
+        </div>
+        <button type="submit" class="btn btn-primary">Add range</button>
+    </form>
+    
+    <button class="btn" ng-click="$ctrl.clone()">Clone this rate</button>
+</div>
